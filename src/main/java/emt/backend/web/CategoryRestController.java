@@ -15,5 +15,6 @@ public class CategoryRestController {
     @GetMapping("/list")
     public List<Category> listCategories(){
         return Arrays.asList(Category.values());
+
     }
 }
