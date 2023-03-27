@@ -51,18 +51,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Optional<Book> edit(Long id, BookDto bookDto) {
-        Optional<Book> b=bookRepository.findById(id);
-        if(b.isEmpty()){
-            throw new RuntimeException("book is not found");
-        }
-        Book book=b.get();
+        Book book=this.bookRepository.findById(id).orElseThrow();
         book.setName(bookDto.getName());
         book.setCategory(bookDto.getCategory());
-        Optional<Author> auth=this.authorService.findById(bookDto.getAuthor());
-        if(auth.isEmpty()){
-            throw new RuntimeException("author is not found");
-        }
-        Author author=auth.get();
+        Author author=this.authorService.findById(bookDto.getAuthor()).orElseThrow();
         book.setAuthor(author);
         book.setAvailableCopies(bookDto.getAvailableCopies());
         return Optional.of(this.bookRepository.save(book));
