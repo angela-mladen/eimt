@@ -64,7 +64,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void markAsTaken(Long id,Integer copies) {
         Book book=bookRepository.findById(id).orElseThrow();
-        if(copies<book.getAvailableCopies()){
+        if(copies>book.getAvailableCopies()){
             throw new InvalidNumberOfCopiesException("Number of copies is invalid");
         }
         book.setAvailableCopies(book.getAvailableCopies()-copies);
